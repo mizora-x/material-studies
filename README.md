@@ -16,6 +16,17 @@
 - **TypeScript**（`astro/tsconfigs/strict`、`astro check` で型検査）
 - **CSS Modules**（コンポーネントごとの `*.module.css`。ページ全体の土台だけ `src/styles/global.css`）
 - **GitHub Actions** で `main` への push ごとに型検査 → ビルド → GitHub Pages へデプロイ。PR では型検査とビルドだけ実行
+- **workflow lockfile**（`.github/workflows/actions.lock`）で、使うアクションと入れ子のアクションをコミット単位で固定。PR と `main` で `gh actions-lock --verify` が検証し、Dependabot が週 1 でアクションと lockfile をまとめて更新
+
+## ワークフローを変えたとき
+
+`uses:` を追加・変更・削除したら、lockfile を作り直してから一緒にコミットします（忘れると「Verify lockfile」が落ちます）。
+
+```sh
+gh extension install github/gh-actions-lock   # 初回のみ
+gh actions-lock                               # .github/workflows/ を走査して actions.lock を更新
+gh actions-lock --verify                      # 確認だけ
+```
 
 ## 構成
 
