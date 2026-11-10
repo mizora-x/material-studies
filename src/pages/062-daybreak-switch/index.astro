@@ -1,0 +1,17 @@
+---
+import Base from '../../layouts/Base.astro';
+import SwitchStudy from '../../components/SwitchStudy.astro';
+import { bySlug } from '../../data/studies';
+
+const meta = bySlug('062-daybreak-switch');
+---
+
+<Base title={`${meta.title} — Material Studies No. ${meta.no}`} description={meta.blurb} vars={meta.vars}>
+  <SwitchStudy meta={meta} />
+</Base>
+
+<script>
+  import { mount } from '../../engine/switch';
+  import { daybreak } from '../../studies/daybreak';
+  mount(daybreak);
+</script>

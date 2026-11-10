@@ -1,0 +1,50 @@
+---
+// The shared editorial layout of a switch study. The page mounts its runtime against the data-* hooks.
+import type { StudyMeta } from '../data/studies';
+import styles from './SwitchStudy.module.css';
+
+interface Props {
+  meta: StudyMeta;
+}
+const { meta } = Astro.props;
+const home = import.meta.env.BASE_URL.replace(/\/?$/, '/');
+---
+
+<main class={styles.main}>
+  <header class={styles.header}>
+    <p class={styles.kicker}>Material Studies / No. {meta.no} · WebGL + Web Audio</p>
+    <h1 class={styles.title}>{meta.title}.</h1>
+    <p class={styles.caption}>{meta.caption}</p>
+  </header>
+  <div class={styles.stage} data-stage>
+    <canvas
+      class={styles.canvas}
+      data-canvas
+      role="slider"
+      tabindex="0"
+      aria-label={meta.ariaLabel}
+      aria-orientation="horizontal"
+      aria-valuemin="0"
+      aria-valuemax="100"
+      aria-valuenow="0"
+      aria-valuetext={meta.ariaText0}></canvas>
+  </div>
+  <p class={styles.error} data-error hidden></p>
+  <dl class={styles.readouts}>
+    {
+      meta.readouts.map(([label, value], i) => (
+        <div class={styles.readout}>
+          <dt class={styles.label}>{label}</dt>
+          <dd class={styles.value} data-read={i}>
+            {value}
+          </dd>
+        </div>
+      ))
+    }
+  </dl>
+  <footer class={styles.footer}>
+    <p class={styles.hint}>Drag the knob or the track · tap to flip · ← → Home End Space</p>
+    <button class={styles.sound} data-sound type="button" aria-pressed="false">Sound off</button>
+    <a class={styles.back} href={home}>All studies</a>
+  </footer>
+</main>

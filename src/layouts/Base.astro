@@ -1,0 +1,25 @@
+---
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+  description: string;
+  vars: { bg: string; fg: string; mut: string; line: string };
+}
+const { title, description, vars } = Astro.props;
+const style = `--bg:${vars.bg};--fg:${vars.fg};--mut:${vars.mut};--line:${vars.line}`;
+---
+
+<!doctype html>
+<html lang="en" style={style}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={description} />
+    <link rel="icon" href="data:," />
+    <title>{title}</title>
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>
