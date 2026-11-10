@@ -1,0 +1,7 @@
+version: 2
+updates:
+  # Bumps the actions in .github/workflows/ and updates actions.lock in the same PR.
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly

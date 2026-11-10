@@ -1,0 +1,27 @@
+# Fails when .github/workflows/actions.lock is out of sync with the workflows,
+# or a locked commit no longer verifies upstream.
+# After adding or changing a `uses:`, run `gh actions-lock` and commit the result.
+
+name: Verify lockfile
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    name: Verify actions.lock
+    runs-on: ubuntu-26.04
+    timeout-minutes: 5
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@v7.0.1
+        with:
+          persist-credentials: false
+      - run: gh extension install github/gh-actions-lock --pin v0.4.1
+      - run: gh actions-lock --verify
