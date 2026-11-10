@@ -1,0 +1,37 @@
+---
+import Base from '../layouts/Base.astro';
+import { studies } from '../data/studies';
+import styles from './index.module.css';
+
+const base = import.meta.env.BASE_URL.replace(/\/?$/, '/');
+---
+
+<Base
+  title="Material Studies"
+  description="Small single-page studies in material and motion: raw WebGL2, Web Audio and a hand-stamped pixel buffer."
+  vars={{ bg: '#1b1a38', fg: '#ece8fa', mut: 'rgba(236,232,250,.62)', line: 'rgba(236,232,250,.18)' }}
+>
+  <main class={styles.main}>
+    <p class={styles.kicker}>Material Studies</p>
+    <h1 class={styles.title}>Toggles.</h1>
+    <p class={styles.caption}>
+      Small single-page studies in material and motion: raw WebGL2, Web Audio and a hand-stamped pixel buffer, no
+      libraries. Each switch tells a little story as you drag it.
+    </p>
+    <ol class={styles.list}>
+      {
+        studies.map((s) => (
+          <li class={styles.item}>
+            <a class={styles.link} href={`${base}${s.slug}/`}>
+              <span class={styles.no}>No. {s.no}</span>
+              <span class={styles.name}>{s.title}.</span>
+              <span class={styles.span}>{s.span}</span>
+              <span class={styles.blurb}>{s.blurb}</span>
+            </a>
+          </li>
+        ))
+      }
+    </ol>
+    <footer class={styles.footer}>Sound starts on first touch. Best with headphones.</footer>
+  </main>
+</Base>
